@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>A3 - Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body id="login-body">
+    <main id="container-login">
+      <div class="login-wrapper">
+        <form action="/login" method="post" class="user-form" id="login-form">
+          <h1>Login</h1>
+          <p>
+            Not registered? Sign up <strong id="toggle-signup">here</strong>
+          </p>
+          <% if(err) { %>
+          <div class="alert alert-danger" role="alert"><%= err %></div>
+          <% } %>
+          <div class="mb-3">
+            <label for="uname">Username</label>
+            <input type="text" name="uname" id="uname" required />
+          </div>
+          <div class="mb-3">
+            <label for="pwd">Password</label>
+            <input type="password" name="pwd" id="pwd" required />
+          </div>
+          <div class="btn-row">
+            <button type="submit">LOGIN</button>
+          </div>
+        </form>
+        <form action="/signup" method="post" class="user-form" id="signup-form">
+          <h1>Sign Up</h1>
+          <p>
+            Already have an account? Login
+            <strong id="toggle-login">here</strong>
+          </p>
+          <% if(err) { %>
+          <div class="alert alert-danger" role="alert"><%= err %></div>
+          <% } %>
+
+          <div class="mb-3">
+            <label for="uname">Username</label>
+            <input type="text" name="uname" id="uname" />
+          </div>
+          <div class="mb-3">
+            <select
+              class="form-select"
+              id="user_type"
+              name="user_type"
+              required
+            >
+              <option selected>User Type</option>
+              <option value="Driver">Driver</option>
+              <option value="Examiner">Examiner</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="pwd">Password</label>
+            <input type="password" name="pwd" id="pwd" required />
+          </div>
+          <div class="mb-3">
+            <label for="cpwd">Confirm Password</label>
+            <input type="password" name="cpwd" id="cpwd" required />
+          </div>
+          <div class="btn-row">
+            <button type="submit">SIGN UP</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const loginBtn = document.getElementById("toggle-login");
+      const signupBtn = document.getElementById("toggle-signup");
+
+      loginBtn.addEventListener("click", () => {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+      });
+
+      signupBtn.addEventListener("click", () => {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<%- include('./partials/header.ejs') %>
+<body>
+  <%- include('./partials/navbar.ejs') %>
+  <main>
+    <section class="sec-main sec-main2">
+      <h1>APPOINTMENT</h1>
+    </section>
+    <section>
+      <div class="form-container">
+        <div class="form-content">
+          <div class="user-info">
+            <div class="row">
+              <h2 class="text-center">Book Appointments</h2>
+              <div class="col">
+                
+                <form action="/get_timeslots" method="post">
+                  <div class="row">
+                    <div class="col">
+                      <label for="app_date" class="form-label">Date</label>
+                      <div class="input-group mb-3">
+                        <% if(_date){ %>
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="app_date"
+                          id="app_date"
+                          value="<%= _date %>"
+                        />
+                        <% } else { %>
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="app_date"
+                          id="app_date"
+                        />
+                        <% } %>
+                        <button class="btn btn-outline-primary" type="submit">
+                          Check Available Times
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <% if(_date){ %>
+                  <form action="/add_appt" method="post">
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="app_time" class="form-label"
+                            >Select Available Time Slot</label
+                          >
+                          <select class="form-select" id="app_time" name="app_time">
+                            <% for(let i=0; i<timeslots.length; i++){ %>
+                              <option value="<%= timeslots[i] %>"><%= timeslots[i] %></option>
+                              <% } %>
+                          </select>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="app_date"
+                            name="app_date"
+                            value="<%= _date %>"
+                            hidden
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col">
+                        <button class="btn btn-primary" type="submit">
+                          Add Appointment
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  <% } %>
+                </div>
+                <div class="col">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Available</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if(all_appointments.length>0){ %>
+                        <% for(let i=0; i<all_appointments.length; i++){ %>
+                          <tr>
+                            <th scope="row"><%= i+1 %></th>
+                            <td><%= all_appointments[i].date %></td>
+                            <td><%= all_appointments[i].time %></td>
+                            <% if(all_appointments[i].isTimeSlotAvailable){ %>
+                              <td><span class="badge bg-success">Yes</span></td>
+                              <% } else { %>
+                              <td><span class="badge bg-danger">No</span></td>
+                                <% } %>
+                          </tr>
+                            
+                        <% } %>
+                        <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <%- include('./partials/footer.ejs') %>
+</body>

@@ -1,0 +1,312 @@
+<%- include('./partials/header.ejs') %>
+<body>
+  <%- include('./partials/navbar.ejs') %>
+  <main>
+    <section class="sec-main sec-main2">
+      <h1>G2 TEST</h1>
+      <h2>Fill in details below</h2>
+    </section>
+    <section>
+      <div class="form-container">
+        <div class="form-content">
+          <div class="row">
+            <div class="col">
+              <form action="/g2_post" method="post">
+                <h3 class="text-center">Personal Information</h3>
+                <hr />
+                <% if(err) { %>
+                <div class="alert alert-danger" role="alert"><%= err %></div>
+                <% } %>
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="fname" class="form-label">First Name</label>
+                      <% if(isDefault){ %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="fname"
+                        id="fname"
+                      />
+                      <% } else { %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="fname"
+                        id="fname"
+                        value="<%= user.firstName %>"
+                        disabled
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="lname" class="form-label">Last Name</label>
+                      <% if(isDefault){ %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="lname"
+                        id="lname"
+                      />
+                      <% } else { %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="lname"
+                        id="lname"
+                        value="<%= user.lastName %>"
+                        disabled
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="age" class="form-label">Age</label>
+                      <% if(isDefault){ %>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="age"
+                        id="age"
+                      />
+                      <% } else { %>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="age"
+                        id="age"
+                        value="<%= user.age %>"
+                        disabled
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                  <% if(isDefault){ %>
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="licence" class="form-label"
+                        >Licence Number</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="licence"
+                        name="license"
+                        placeholder="must be 8 characters"
+                      />
+                    </div>
+                  </div>
+                  <% } else {%>
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="license" class="form-label"
+                        >License Number</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="license"
+                        id="license"
+                        value="*****"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <% } %>
+                </div>
+                <p class="text-center">***</p>
+                <h3 class="text-center">Car Information</h3>
+                <hr />
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="make" class="form-label">Make</label>
+                      <% if(isDefault){ %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="make"
+                        id="make"
+                      />
+                      <% } else { %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="make"
+                        id="make"
+                        value="<%= user.carDetails.make %>"
+                        disabled
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="model" class="form-label">Model</label>
+                      <% if(isDefault){ %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="model"
+                        id="model"
+                      />
+                      <% } else { %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="model"
+                        id="model"
+                        value="<%= user.carDetails.model %>"
+                        disabled
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="year" class="form-label">Year</label>
+                      <% if(isDefault){ %>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="year"
+                        id="year"
+                      />
+                      <% } else { %>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="year"
+                        id="year"
+                        value="<%= user.carDetails.year %>"
+                        disabled
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="platenum" class="form-label"
+                        >Plate Number</label
+                      >
+                      <% if(isDefault){ %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="platenum"
+                        id="platenum"
+                      />
+                      <% } else { %>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="platenum"
+                        id="platenum"
+                        value="<%= user.carDetails.platenum %>"
+                        disabled
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col">
+                    <% if(isDefault){ %>
+                    <button class="btn btn-success btn-lg" type="submit">
+                      SUBMIT
+                    </button>
+                    <% } %>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col">
+              <h2 class="text-center">Book an Appointment</h2>
+              <hr />
+              <% if(app_booked){ %>
+              <div class="alert alert-success" role="alert">
+                <%= app_booked %>
+              </div>
+                <% } %>
+              <form action="/get_appointments" method="post">
+                <div class="row">
+                  <div class="col">
+                    <label for="app_date" class="form-label">Date</label>
+                    <div class="input-group mb-3">
+                      <% if(date){ %>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="app_date"
+                        id="app_date"
+                        value="<%= date %>"
+                      />
+                      <% } else { %>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="app_date"
+                        id="app_date"
+                      />
+                      <% } %>
+                      <button class="btn btn-outline-primary" type="submit">
+                        Check Available Times
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <% if(timeslots){ %>
+                <% if(timeslots != "404") { %>
+                  <form action="/book_appointment" method="post">
+                    <h4>Available Times for (<%= date %>):</h4>
+                  <% for(let i=0; i<timeslots.length; i++){ %>
+                    <% if(timeslots[i].isTimeSlotAvailable){%>
+                      <div class="row">
+                        <div class="mb-3">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="app_id"
+                              id="app_id"
+                              value="<%= timeslots[i]._id %>"
+                            />
+                            <label class="form-check-label" for="app_id">
+                              <%= timeslots[i].time %>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <% } %>
+                    
+                    <% } %>
+                    <div class="row">
+                      <div class="col">
+                        <button class="btn btn-success" type="submit">
+                          Book Appointment
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  <% } else if(timeslots == "404") { %>
+                    <div class="alert alert-danger" role="alert">
+                      No Appointments Found for this Date!
+                    </div>
+                    <% } %>
+                <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <%- include('./partials/footer.ejs') %>
+</body>
