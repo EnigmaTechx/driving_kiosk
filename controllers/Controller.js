@@ -21,10 +21,19 @@ class Controller {
 				user_in_db.password
 			);
 			if (isMatched) {
+				console.log("username: ", user_in_db.username);
+				console.log("comments: ", user_in_db.comments);
+				console.log("testPassed: ", user_in_db.testPassed);
+				if (user_in_db.testPassed !== undefined) {
+					console.log("DONT undefined");
+				} else {
+					console.log("undefined");
+				}
 				let userInfo = {
 					user_id: user_in_db._id,
 					username: user_in_db.username,
 					UserType: user_in_db.UserType,
+					testPassed: user_in_db.testPassed,
 				};
 				req.session.user = userInfo;
 				const user = req.session.user;
@@ -78,6 +87,7 @@ class Controller {
 		const isDefault = userInfo.licenseNum === "default" ? true : false;
 		let app_booked = null;
 		let date = null;
+		req.session.user.driverMarkExist = false;
 		let formaction_fisrt_form = "/g_post";
 		let formaction_second_form = "/g_get_appointments";
 		if (userInfo.appointmentID !== "default") {
@@ -87,13 +97,17 @@ class Controller {
 			date = app.date;
 			const time = app.time;
 			app_booked = `Your appointment is booked for ${date} at ${time}`;
-			formaction_fisrt_form = "/g_update_user";
-			formaction_second_form = "/g_get_appointments";
 		}
-
+		if (userInfo.licenseNum !== "default") {
+			formaction_fisrt_form = "/g_update_user";
+		}
+		if (req.session.user.testPassed !== undefined) {
+			req.session.user.driverMarkExist = true;
+		}
 		res.render("g_test", {
 			user: userInfo,
 			isDefault: isDefault,
+			driverMarkExist: req.session.user.driverMarkExist,
 			formaction_fisrt_form: formaction_fisrt_form,
 			formaction_second_form: formaction_second_form,
 			err: error,
@@ -101,20 +115,6 @@ class Controller {
 			timeslots: null,
 			app_booked: app_booked,
 		});
-
-		/*const success = req.session.success;
-		delete req.session.success;
-		const error = req.session.error;
-		delete req.session.error;
-		// fetch user from db
-		const userInfo = await userModel.findOne({ _id: req.session.user.user_id });
-		if (userInfo.licenseNum === "default") {
-			// user has not filled out their info
-			res.render("g_test", { user: userInfo, success: success, err: error });
-		} else {
-			// user has filled out their info; render g_test page
-			res.render("g_test", { user: userInfo, success: success, err: error });
-		}*/
 	};
 
 	static g_test_post = async (req, res) => {
@@ -229,6 +229,7 @@ class Controller {
 		const isDefault = userInfo.licenseNum === "default" ? true : false;
 		let app_booked = null;
 		let date = null;
+		req.session.user.driverMarkExist = false;
 		let formaction_fisrt_form = "/g2_post";
 		let formaction_second_form = "/g2_get_appointments";
 		if (userInfo.appointmentID !== "default") {
@@ -238,13 +239,18 @@ class Controller {
 			date = app.date;
 			const time = app.time;
 			app_booked = `Your appointment is booked for ${date} at ${time}`;
+		}
+		if (userInfo.licenseNum !== "default") {
 			formaction_fisrt_form = "/g2_update_user";
-			formaction_second_form = "/g2_get_appointments";
+		}
+		if (req.session.user.testPassed !== undefined) {
+			req.session.user.driverMarkExist = true;
 		}
 
 		res.render("g2_test", {
 			user: userInfo,
 			isDefault: isDefault,
+			driverMarkExist: req.session.user.driverMarkExist,
 			formaction_fisrt_form: formaction_fisrt_form,
 			formaction_second_form: formaction_second_form,
 			err: error,
@@ -319,6 +325,7 @@ class Controller {
 	};
 
 	static g2_update_user = async (req, res) => {
+		console.log(`g2_update_user`);
 		try {
 			const userId = req.session.user.user_id;
 			const form_data = req.body;

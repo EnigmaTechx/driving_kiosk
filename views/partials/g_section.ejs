@@ -125,13 +125,22 @@
                       name="make"
                       id="make"
                     />
-                    <% } else { %>
+                    <% } else if(!driverMarkExist) { %>
                     <input
                       type="text"
                       class="form-control"
                       name="make"
                       id="make"
                       value="<%= user.carDetails.make %>"                      
+                    />
+                    <% } else { %>
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="make"
+                      id="make"
+                      value="<%= user.carDetails.make %>"      
+                      disabled                
                     />
                     <% } %>
                   </div>
@@ -146,13 +155,22 @@
                       name="model"
                       id="model"
                     />
-                    <% } else { %>
+                    <% } else if(!driverMarkExist) { %>
                     <input
                       type="text"
                       class="form-control"
                       name="model"
                       id="model"
                       value="<%= user.carDetails.model %>"                      
+                    />
+                    <% } else { %>
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="make"
+                      id="make"
+                      value="<%= user.carDetails.model %>"      
+                      disabled                
                     />
                     <% } %>
                   </div>
@@ -169,13 +187,22 @@
                       name="year"
                       id="year"
                     />
-                    <% } else { %>
+                    <% } else if(!driverMarkExist) { %>
                     <input
                       type="number"
                       class="form-control"
                       name="year"
                       id="year"
                       value="<%= user.carDetails.year %>"                      
+                    />
+                    <% } else { %>
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="make"
+                      id="make"
+                      value="<%= user.carDetails.year %>"      
+                      disabled                
                     />
                     <% } %>
                   </div>
@@ -192,13 +219,22 @@
                       name="platenum"
                       id="platenum"
                     />
-                    <% } else { %>
+                    <% } else if(!driverMarkExist) { %>
                     <input
                       type="text"
                       class="form-control"
                       name="platenum"
                       id="platenum"
                       value="<%= user.carDetails.platenum %>"                      
+                    />
+                    <% } else { %>
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="make"
+                      id="make"
+                      value="<%= user.carDetails.platenum %>"      
+                      disabled                
                     />
                     <% } %>
                   </div>
@@ -210,7 +246,7 @@
                         <button class="btn btn-success btn-lg" type="submit" formaction="<%= formaction_fisrt_form %>">
                         SUBMIT
                         </button>
-                    <% } else { %>
+                    <% } else if(!driverMarkExist) { %>
                         <button class="btn btn-success btn-lg" type="submit" formaction="<%= formaction_fisrt_form %>">
                             Update
                         </button>
@@ -222,39 +258,39 @@
           <div class="col">
             <h2 class="text-center">Book an Appointment</h2>
             <hr />
-            <% if(app_booked){ %>
-                <div class="alert alert-success" role="alert">
-                <%= app_booked %>
+            <% if(app_booked && !driverMarkExist) { %>
+              <div class="alert alert-success" role="alert">
+              <%= app_booked %>
+              </div>
+            <% } else if(!app_booked) { %>
+              <form method="post">
+              <div class="row">
+                <div class="col">
+                  <label for="app_date" class="form-label">Date</label>
+                  <div class="input-group mb-3">
+                      <% if(date){ %>
+                      <input
+                      type="date"
+                      class="form-control"
+                      name="app_date"
+                      id="app_date"
+                      value="<%= date %>"
+                      />
+                      <% } else { %>
+                      <input
+                      type="date"
+                      class="form-control"
+                      name="app_date"
+                      id="app_date"
+                      />
+                      <% } %>
+                      <button class="btn btn-outline-primary" type="submit" formaction="<%= formaction_second_form %>">
+                      Check Available Times
+                      </button>
+                  </div>
                 </div>
-                <% } else { %>
-                <form method="post">
-                <div class="row">
-                    <div class="col">
-                    <label for="app_date" class="form-label">Date</label>
-                    <div class="input-group mb-3">
-                        <% if(date){ %>
-                        <input
-                        type="date"
-                        class="form-control"
-                        name="app_date"
-                        id="app_date"
-                        value="<%= date %>"
-                        />
-                        <% } else { %>
-                        <input
-                        type="date"
-                        class="form-control"
-                        name="app_date"
-                        id="app_date"
-                        />
-                        <% } %>
-                        <button class="btn btn-outline-primary" type="submit" formaction="<%= formaction_second_form %>">
-                        Check Available Times
-                        </button>
-                    </div>
-                    </div>
-                </div>
-                </form>
+              </div>
+              </form>
             <% } %>
             <% if(timeslots) { %>
               <% if(timeslots != "404") { %>
@@ -293,6 +329,25 @@
                   No Appointments Found for this Date!
                 </div>
               <% } %>
+            <% } %>
+            <% if(driverMarkExist) { %>
+              <div class="row">
+                <div class="col">
+                  <% if(user.testPassed) { %>
+                    <div class="alert alert-success" role="alert">
+                      Congratulations, you passed the exam!
+                    </div>
+                  <% } else { %>
+                    <div class="alert alert-danger" role="alert">
+                      I'm sorry to say that you fail the exam.
+                    </div>
+                  <% } %>
+                  <h4>Comments:</h4>
+                  <p>
+                    <%= user.comments %>
+                  </p>
+                </div>
+              </div>
             <% } %>
           </div>
         </div>
