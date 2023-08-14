@@ -1,0 +1,158 @@
+<%- include('./partials/header.ejs') %>
+<body>
+  <%- include('./partials/navbar.ejs') %>
+  <main>
+    <section class="sec-main sec-main2">
+      <h1>G TEST</h1>
+      <h2>Fill in details below</h2>
+    </section>
+    <section>
+      <div class="form-container">
+        <div class="form-content">
+          <div class="user-info">
+            <h2>Book a G Road Test</h2>
+            <p>Please check/update your information</p>
+            <form method="post" id="update_form" action="/update_user">
+              <% if(success) { %>
+              <div class="alert alert-success" role="alert"><%= success %></div>
+              <% } %> <% if(err) { %>
+              <div class="alert alert-danger" role="alert"><%= err %></div>
+              <% } %>
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="fname" class="form-label">First Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="fname"
+                      id="fname"
+                      value="<%= user.firstName %>"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="lname" class="form-label">Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="lname"
+                      id="lname"
+                      value="<%= user.lastName %>"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="age"
+                      id="age"
+                      value="<%= user.age %>"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="license" class="form-label"
+                      >License Number</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="license"
+                      id="license"
+                      value="*****"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <h3 class="text-center">Car Information</h3>
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="make" class="form-label">Make</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="make"
+                      name="make"
+                      value="<%= user.carDetails.make %>"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="model" class="form-label">Model</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="model"
+                      name="model"
+                      value="<%= user.carDetails.model %>"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="year" class="form-label">Year</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="year"
+                      name="year"
+                      value="<%= user.carDetails.year %>"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="platenum" class="form-label"
+                      >Car Plate Number</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="platenum"
+                      name="platenum"
+                      value="<%= user.carDetails.platenum %>"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row text-center">
+                <input
+                  type="text"
+                  value="<%= user._id %>"
+                  id="userId"
+                  name="userId"
+                  hidden
+                />
+                <div class="col">
+                  <button class="btn btn-info btn-lg" type="submit">
+                    Update
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <%- include('./partials/footer.ejs') %>
+</body>
