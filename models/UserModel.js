@@ -30,6 +30,9 @@ const userSchema = mongoose.Schema({
 	},
 	UserType: { type: String, required: true, default: "Driver" },
 	appointmentID: { type: String, required: true, default: "default" },
+	testType: { type: String, required: true, default: "default" },
+	comments: { type: String, required: true, default: "default" },
+	testPassed: { type: Boolean },
 });
 
 const appointmentSchema = mongoose.Schema({
