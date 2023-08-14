@@ -263,30 +263,29 @@
                   </div>
                 </div>
               </form>
-              <% if(timeslots){ %>
+              <% if(timeslots) { %>
                 <% if(timeslots != "404") { %>
                   <form action="/book_appointment" method="post">
                     <h4>Available Times for (<%= date %>):</h4>
-                  <% for(let i=0; i<timeslots.length; i++){ %>
-                    <% if(timeslots[i].isTimeSlotAvailable){%>
-                      <div class="row">
-                        <div class="mb-3">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="radio"
-                              name="app_id"
-                              id="app_id"
-                              value="<%= timeslots[i]._id %>"
-                            />
-                            <label class="form-check-label" for="app_id">
-                              <%= timeslots[i].time %>
-                            </label>
+                    <% for(let i=0; i<timeslots.length; i++) { %>
+                      <% if(timeslots[i].isTimeSlotAvailable){%>
+                        <div class="row">
+                          <div class="mb-3">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="app_id"
+                                id="app_id"
+                                value="<%= timeslots[i]._id %>"
+                              />
+                              <label class="form-check-label" for="app_id">
+                                <%= timeslots[i].time %>
+                              </label>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <% } %>
-                    
+                      <% } %>                      
                     <% } %>
                     <div class="row">
                       <div class="col">
@@ -296,12 +295,12 @@
                       </div>
                     </div>
                   </form>
-                  <% } else if(timeslots == "404") { %>
-                    <div class="alert alert-danger" role="alert">
-                      No Appointments Found for this Date!
-                    </div>
-                    <% } %>
+                <% } else if(timeslots == "404") { %>
+                  <div class="alert alert-danger" role="alert">
+                    No Appointments Found for this Date!
+                  </div>
                 <% } %>
+              <% } %>
             </div>
           </div>
         </div>
