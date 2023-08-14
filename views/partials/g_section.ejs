@@ -223,41 +223,42 @@
             <h2 class="text-center">Book an Appointment</h2>
             <hr />
             <% if(app_booked){ %>
-            <div class="alert alert-success" role="alert">
-              <%= app_booked %>
-            </div>
-              <% } %>
-            <form action="/get_appointments" method="post">
-              <div class="row">
-                <div class="col">
-                  <label for="app_date" class="form-label">Date</label>
-                  <div class="input-group mb-3">
-                    <% if(date){ %>
-                    <input
-                      type="date"
-                      class="form-control"
-                      name="app_date"
-                      id="app_date"
-                      value="<%= date %>"
-                    />
-                    <% } else { %>
-                    <input
-                      type="date"
-                      class="form-control"
-                      name="app_date"
-                      id="app_date"
-                    />
-                    <% } %>
-                    <button class="btn btn-outline-primary" type="submit">
-                      Check Available Times
-                    </button>
-                  </div>
+                <div class="alert alert-success" role="alert">
+                <%= app_booked %>
                 </div>
-              </div>
-            </form>
+                <% } else { %>
+                <form method="post">
+                <div class="row">
+                    <div class="col">
+                    <label for="app_date" class="form-label">Date</label>
+                    <div class="input-group mb-3">
+                        <% if(date){ %>
+                        <input
+                        type="date"
+                        class="form-control"
+                        name="app_date"
+                        id="app_date"
+                        value="<%= date %>"
+                        />
+                        <% } else { %>
+                        <input
+                        type="date"
+                        class="form-control"
+                        name="app_date"
+                        id="app_date"
+                        />
+                        <% } %>
+                        <button class="btn btn-outline-primary" type="submit" formaction="<%= formaction_second_form %>">
+                        Check Available Times
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                </form>
+            <% } %>
             <% if(timeslots) { %>
               <% if(timeslots != "404") { %>
-                <form action="/book_appointment" method="post">
+                <form method="post">
                   <h4>Available Times for (<%= date %>):</h4>
                   <% for(let i=0; i<timeslots.length; i++) { %>
                     <% if(timeslots[i].isTimeSlotAvailable){%>
@@ -281,7 +282,7 @@
                   <% } %>
                   <div class="row">
                     <div class="col">
-                      <button class="btn btn-success" type="submit">
+                      <button class="btn btn-success" type="submit" formaction="<%= formaction_third_form %>">
                         Book Appointment
                       </button>
                     </div>

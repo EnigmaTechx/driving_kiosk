@@ -79,6 +79,7 @@ class Controller {
 		let app_booked = null;
 		let date = null;
 		let formaction_fisrt_form = "/g_post";
+		let formaction_second_form = "/g_get_appointments";
 		if (userInfo.appointmentID !== "default") {
 			const app = await appointmentModel.findOne({
 				_id: userInfo.appointmentID,
@@ -87,12 +88,14 @@ class Controller {
 			const time = app.time;
 			app_booked = `Your appointment is booked for ${date} at ${time}`;
 			formaction_fisrt_form = "/g_update_user";
+			formaction_second_form = "/g_get_appointments";
 		}
 
 		res.render("g_test", {
 			user: userInfo,
 			isDefault: isDefault,
 			formaction_fisrt_form: formaction_fisrt_form,
+			formaction_second_form: formaction_second_form,
 			err: error,
 			date: date,
 			timeslots: null,
@@ -227,6 +230,7 @@ class Controller {
 		let app_booked = null;
 		let date = null;
 		let formaction_fisrt_form = "/g2_post";
+		let formaction_second_form = "/g2_get_appointments";
 		if (userInfo.appointmentID !== "default") {
 			const app = await appointmentModel.findOne({
 				_id: userInfo.appointmentID,
@@ -235,12 +239,14 @@ class Controller {
 			const time = app.time;
 			app_booked = `Your appointment is booked for ${date} at ${time}`;
 			formaction_fisrt_form = "/g2_update_user";
+			formaction_second_form = "/g2_get_appointments";
 		}
 
 		res.render("g2_test", {
 			user: userInfo,
 			isDefault: isDefault,
 			formaction_fisrt_form: formaction_fisrt_form,
+			formaction_second_form: formaction_second_form,
 			err: error,
 			date: date,
 			timeslots: null,
