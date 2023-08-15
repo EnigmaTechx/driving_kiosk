@@ -267,6 +267,68 @@ class App_Controller {
 			console.log(`unable to book appointment ${error}`);
 		}
 	};
+
+	static pass_fail_get = async (req, res) => {
+		const usersFound = await userModel
+			.find({
+				testPassed: { $exists: true },
+			})
+			.sort({ createdAt: -1 }); // -1 for descending order, 1 for ascending order;
+
+		res.render("admin_pass_fail", {
+			user: req.session.user,
+			usersFound: usersFound,
+			filterSelected: "Filter selected: All",
+			errorEmptyFormData: false,
+		});
+	};
+
+	static pass_fail_post = async (req, res) => {
+		console.log("pass_fail_post");
+		try {
+			const form_data = req.body;
+			//console.log("form_data: ", form_data);
+			let usersFound;
+			let filterSelected = "Filter selected: ";
+			let errorEmptyFormData = false;
+
+			if (Object.keys(form_data).length === 0) {
+				errorEmptyFormData = true;
+			} else if (form_data.all) {
+				usersFound = await userModel
+					.find({
+						testPassed: { $exists: true },
+					})
+					.sort({ createdAt: -1 });
+				filterSelected += "All";
+			} else if (form_data.approved_drivers) {
+				usersFound = await userModel
+					.find({
+						testPassed: true,
+					})
+					.sort({ createdAt: -1 });
+				filterSelected += "Approved drivers";
+			} else if (form_data.failed_drivers) {
+				usersFound = await userModel
+					.find({
+						testPassed: false,
+					})
+					.sort({ createdAt: -1 });
+				filterSelected += "Failed drivers";
+			} else {
+				usersFound = null;
+			}
+
+			res.render("admin_pass_fail", {
+				user: req.session.user,
+				usersFound: usersFound,
+				filterSelected: filterSelected,
+				errorEmptyFormData: errorEmptyFormData,
+			});
+		} catch (error) {
+			console.log(`unable to filter the list ${error}`);
+		}
+	};
 }
 
 export default App_Controller;

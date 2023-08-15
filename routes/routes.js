@@ -22,6 +22,8 @@ router.post("/g_book_appointment", App_Controller.g_book_appointment);
 router.post("/g2_book_appointment", App_Controller.g2_book_appointment);
 router.post("/g_update_user", Controller.g_update_user);
 router.post("/g2_update_user", Controller.g2_update_user);
+router.get("/passfail", App_Controller.pass_fail_get);
+router.post("/passfail_filter", App_Controller.pass_fail_post);
 router.get("/logout", Controller.logout_get);
 
 export default router;

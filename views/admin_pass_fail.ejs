@@ -1,0 +1,100 @@
+<%- include('./partials/header.ejs') %>
+<body>
+  <%- include('./partials/navbar.ejs') %>
+    <main>
+        <section class="sec-main sec-main2">
+            <h1>PASS/FAIL</h1>
+        </section>
+        <section>
+            <div class="form-container">
+                <div class="form-content">
+                    <div class="row">
+                        <h2 class="text-center">Pass/Faill List</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col"> 
+                            <form action="passfail_filter" method="POST"> 
+                                <div class="mt-4 mb-3">
+                                    <input
+                                    class="form-check-input ms-2"
+                                    type="radio"
+                                    name="all"
+                                    id="all"
+                                    value="all"
+                                    selected
+                                    />
+                                    <label class="form-check-label" for="All">
+                                    All
+                                    </label>
+                                    <input
+                                    class="form-check-input ms-2"
+                                    type="radio"
+                                    name="approved_drivers"
+                                    id="approved_drivers"
+                                    value="approved_drivers"
+                                    />
+                                    <label class="form-check-label" for="approved_drivers">
+                                    Approved drivers
+                                    </label>
+                                    <input
+                                    class="form-check-input ms-2"
+                                    type="radio"
+                                    name="failed_drivers"
+                                    id="failed_drivers"
+                                    value="failed_drivers"
+                                    />
+                                    <label class="form-check-label" for="failed_drivers">
+                                        Failed drivers
+                                    </label>                                                    
+                                    <button class="btn btn-success ms-3" type="submit">
+                                    Filter list
+                                    </button>   
+                                </div>                                                       
+                                                                                                                                                                                 
+                            </form> 
+                        
+                        <div class="col"> 
+                            <% if(errorEmptyFormData){ %>
+                                <div class="alert alert-danger" role="alert">
+                                    You haven't select any option to filter.
+                                </div>
+                            <% } else if(usersFound){ %>
+                                <label for="app_date" class="form-label"><%= filterSelected %></label>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Test</th>
+                                        <th scope="col">Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(let i=0; i<usersFound.length; i++) { %>
+                                            <tr>
+                                                <th scope="row"><%= i+1 %></th>
+                                                <td><%= usersFound[i].firstName + " " + usersFound[i].lastName %></td>
+                                                <td><%= usersFound[i].testType %></td>
+                                                <% if(usersFound[i].testPassed){ %>
+                                                    <td><span class="badge bg-success">Passed</span></td>
+                                                <% } else { %>
+                                                    <td><span class="badge bg-danger">Failed</span></td>
+                                                <% } %>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            <% } else { %>
+                                <div class="alert alert-danger" role="alert">
+                                    No user was found
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </section>
+    </main>
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>
