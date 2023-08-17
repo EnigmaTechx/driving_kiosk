@@ -36,6 +36,11 @@
             <a class="nav-link" href="/passfail">Pass/Fail</a>
           </li>
           <% } %>
+          <% if(user.UserType === "Examiner"){ %>
+          <li class="nav-item">
+            <a class="nav-link" href="/examiner">Examiner</a>
+          </li>
+            <% } %>
         </ul>
         <div class="dropdown">
           <button

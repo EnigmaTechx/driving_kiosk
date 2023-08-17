@@ -23,5 +23,14 @@ const isAdmin = (req, res, next) => {
   }
 };
 
+const isExaminer = (req, res, next) => {
+  if (req.session.user.UserType === "Examiner") {
+    next();
+  } else {
+    req.session.error = "Only Examiners can access this page";
+    res.redirect("/dashboard");
+  }
+};
+
 export default isDriver;
-export { isAdmin, isAuthorized };
+export { isAdmin, isAuthorized, isExaminer };
